@@ -1,0 +1,3 @@
+ enum ProfileType {
+  doctor, patient;
+}
