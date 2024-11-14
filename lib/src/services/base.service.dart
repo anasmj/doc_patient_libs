@@ -1,6 +1,6 @@
 typedef RawData = Map<String, dynamic>;
 
-abstract class BaseService<T extends RawData> {
+abstract class BaseService<T> {
   Future<String?> create(T data);
   Future<T?> read(String id);
   Future<List<T>> readAll();

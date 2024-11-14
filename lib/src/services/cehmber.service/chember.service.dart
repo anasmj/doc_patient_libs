@@ -1,8 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:doc_patient_libs/src/models/models.dart';
 import 'package:doc_patient_libs/src/services/base.service.dart';
 import 'package:doc_patient_libs/src/services/collections.dart';
 
-class ChemberService extends BaseService {
+class ChemberService extends BaseService<Chember> {
   ChemberService._();
 
   static final ChemberService instance = ChemberService._();
@@ -11,7 +12,7 @@ class ChemberService extends BaseService {
       FirebaseFirestore.instance.collection(Collection.chember);
 
   @override
-  Future<String?> create(RawData data) async {
+  Future<String?> create(Chember data) async {
     try {
       DocumentReference docRef = await _chemberCollection.add(data);
       return docRef.id;
@@ -21,10 +22,12 @@ class ChemberService extends BaseService {
   }
 
   @override
-  Future<RawData?> read(String id) async {
+  Future<Chember?> read(String id) async {
     try {
       DocumentSnapshot doc = await _chemberCollection.doc(id).get();
-      return doc.exists ? doc.data() as RawData : null;
+      final data = doc.exists ? doc.data() as RawData : null;
+      if (data == null) return null;
+      return Chember.fromMap(data);
     } catch (e) {
       // print("Error reading document: $e");
       return null;
@@ -32,20 +35,31 @@ class ChemberService extends BaseService {
   }
 
   @override
-  Future<List<RawData>> readAll() async {
+  Future<List<Chember>> readAll() async {
     try {
       QuerySnapshot querySnapshot = await _chemberCollection.get();
-      return querySnapshot.docs.map((doc) => doc.data() as RawData).toList();
+      final datas =
+          querySnapshot.docs.map((doc) => doc.data() as RawData).toList();
+      return datas.map((data) => Chember.fromMap(data)).toList();
     } catch (e) {
       // print("Error reading all documents: $e");
       return [];
     }
   }
+  // Future<List<RawData>> readAll() async {
+  //   try {
+  //     QuerySnapshot querySnapshot = await _chemberCollection.get();
+  //     return querySnapshot.docs.map((doc) => doc.data() as RawData).toList();
+  //   } catch (e) {
+  //     // print("Error reading all documents: $e");
+  //     return [];
+  //   }
+  // }
 
   @override
-  Future<bool> update(String id, RawData data) async {
+  Future<bool> update(String id, Chember data) async {
     try {
-      await _chemberCollection.doc(id).update(data);
+      await _chemberCollection.doc(id).update(data.toMap());
       return true;
     } catch (e) {
       // print("Error updating document: $e");
