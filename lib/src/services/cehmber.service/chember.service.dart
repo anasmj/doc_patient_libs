@@ -22,7 +22,7 @@ class ChemberService extends BaseService<Chember> {
   }
 
   @override
-  Future<Chember?> read(String id) async {
+  Future<Chember?> getSingle(String id) async {
     try {
       DocumentSnapshot doc = await _chemberCollection.doc(id).get();
       final data = doc.exists ? doc.data() as RawData : null;
@@ -35,7 +35,7 @@ class ChemberService extends BaseService<Chember> {
   }
 
   @override
-  Future<List<Chember>> readAll() async {
+  Future<List<Chember>> getAll() async {
     try {
       QuerySnapshot querySnapshot = await _chemberCollection.get();
       final datas =
@@ -46,15 +46,6 @@ class ChemberService extends BaseService<Chember> {
       return [];
     }
   }
-  // Future<List<RawData>> readAll() async {
-  //   try {
-  //     QuerySnapshot querySnapshot = await _chemberCollection.get();
-  //     return querySnapshot.docs.map((doc) => doc.data() as RawData).toList();
-  //   } catch (e) {
-  //     // print("Error reading all documents: $e");
-  //     return [];
-  //   }
-  // }
 
   @override
   Future<bool> update(String id, Chember data) async {
@@ -78,49 +69,3 @@ class ChemberService extends BaseService<Chember> {
     }
   }
 }
-// class ChemberService {
-//   ChemberService._();
-
-//   static final ChemberService instance = ChemberService._();
-
-//   final CollectionReference _chemberCollection =
-//       FirebaseFirestore.instance.collection('chember');
-
-//   Future<void> createChember(Map<String, dynamic> data) async {
-//     try {
-//       await _chemberCollection.add(data);
-//     } catch (e) {
-//       //
-//     }
-//   }
-
-//   Future<List<Map<String, dynamic>>> readChember() async {
-//     try {
-//       QuerySnapshot querySnapshot = await _chemberCollection.get();
-//       return querySnapshot.docs
-//           .map((doc) => {
-//                 ...doc.data() as Map<String, dynamic>,
-//                 'id': doc.id,
-//               })
-//           .toList();
-//     } catch (e) {
-//       return [];
-//     }
-//   }
-
-//   Future<void> updateChember(String id, Map<String, dynamic> data) async {
-//     try {
-//       await _chemberCollection.doc(id).update(data);
-//     } catch (e) {
-//       //
-//     }
-//   }
-
-//   Future<void> deleteChember(String id) async {
-//     try {
-//       await _chemberCollection.doc(id).delete();
-//     } catch (e) {
-//       //
-//     }
-//   }
-// }

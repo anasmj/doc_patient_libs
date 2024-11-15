@@ -2,12 +2,6 @@
 part of '../models.dart';
 
 
-// import 'appointment.type.dart';
-// import 'chember.dart';
-// import 'patient.data.dart';
-
-
-enum AppointmentStatus { pending, confirmed, cancelled }
 
 class Appointment {
   final String? id;
@@ -30,42 +24,51 @@ class Appointment {
   Appointment copyWith({
     String? id,
     PatientData? patientData,
-    String? weekDay,
-    Chember? chember,
     DateTime? dateTime,
+    Chember? chember,
     AppointmentType? type,
     AppointmentStatus? status,
   }) {
     return Appointment(
       id: id ?? this.id,
       patientData: patientData ?? this.patientData,
+      dateTime: dateTime ?? this.dateTime,
       chember: chember ?? this.chember,
       type: type ?? this.type,
       status: status ?? this.status,
-      dateTime: dateTime ?? this.dateTime,
     );
   }
 
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
-      // 'patientData': patientData?.toMap(),
-      // 'date': date?.millisecondsSinceEpoch,
-      // 'weekDay': weekDay,
-      // 'apptTime': apptTime?.toMap(),
-      // 'chember': chember?.toMap(),
-      // 'isFirstTime': isFirstTime,
+      'id': id,
+      'patientData': patientData?.toMap(),
+      'dateTime': dateTime?.millisecondsSinceEpoch,
+      'chember': chember?.toMap(),
+      'type': EnumToString.convertToString(type),
+      'status': EnumToString.convertToString(status)
     };
   }
 
   factory Appointment.fromMap(Map<String, dynamic> map) {
     return Appointment(
-        // patientData: map['patientData'] != null ? PatientData.fromMap(map['patientData'] as Map<String,dynamic>) : null,
-        // date: map['date'] != null ? DateTime.fromMillisecondsSinceEpoch(map['date'] as int) : null,
-        // weekDay: map['weekDay'] != null ? map['weekDay'] as String : null,
-        // apptTime: map['apptTime'] != null ? TimeOfDay.fromMap(map['apptTime'] as Map<String,dynamic>) : null,
-        // chember: map['chember'] != null ? Chember.fromMap(map['chember'] as Map<String,dynamic>) : null,
-        // isFirstTime: map['isFirstTime'] != null ? map['isFirstTime'] as bool : null,
-        );
+      id: map['id'] != null ? map['id'] as String : null,
+      patientData: map['patientData'] != null
+          ? PatientData.fromMap(map['patientData'] as Map<String, dynamic>)
+          : null,
+      dateTime: map['dateTime'] != null
+          ? DateTime.fromMillisecondsSinceEpoch(map['dateTime'] as int)
+          : null,
+      chember: map['chember'] != null
+          ? Chember.fromMap(map['chember'] as Map<String, dynamic>)
+          : null,
+      type: map['type'] != null
+          ? EnumToString.fromString(AppointmentType.values, map['type'])
+          : null,
+      status: map['status'] != null
+          ? EnumToString.fromString(AppointmentStatus.values, map['status'])
+          : null,
+    );
   }
 
   String toJson() => json.encode(toMap());
@@ -75,30 +78,49 @@ class Appointment {
 
   @override
   String toString() {
-    return 'patientt : ${patientData?.name}, status : $status\n';
+    return 'Appointment(id: $id, patientData: $patientData, dateTime: $dateTime, chember: $chember, type: $type, status: $status)';
   }
-  // String toString() {
-  //   return 'Appointment(patientData: $patientData, date: $dateTime , chember: $chember, isFirstTime: $isFirstTime)';
-  // }
 
   @override
   bool operator ==(covariant Appointment other) {
     if (identical(this, other)) return true;
 
-    return other.id == id;
+    return other.id == id &&
+        other.patientData == patientData &&
+        other.dateTime == dateTime &&
+        other.chember == chember &&
+        other.type == type &&
+        other.status == status;
   }
 
   @override
   int get hashCode {
-    return id.hashCode;
+    return id.hashCode ^
+        patientData.hashCode ^
+        dateTime.hashCode ^
+        chember.hashCode ^
+        type.hashCode ^
+        status.hashCode;
   }
 }
 
-enum NotifyMethod { email, sms }
+
 
 extension AppointmentExt on Appointment {
   bool get isPending => status == AppointmentStatus.pending;
   bool get isConfirmed => status == AppointmentStatus.confirmed;
   bool get isCancelled => status == AppointmentStatus.cancelled;
   bool get isValid => dateTime != null && chember != null;
+}
+
+extension EnumExtension on Enum {
+  // Converts an enum value to a string
+  String get toEnumString => toString().split('.').last;
+
+  // Converts a string to an enum value
+  T? fromEnumString<T extends Enum>(String value, List<T> enumValues) {
+    return enumValues.firstWhere(
+      (e) => e.toString().split('.').last == value,
+    );
+  }
 }

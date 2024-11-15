@@ -1,7 +1,6 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 part of '../models.dart';
 
-
 class PatientData {
   String? name;
   Gender? gender;
@@ -43,7 +42,7 @@ class PatientData {
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
       'name': name,
-      // 'gender': gender?.toMap(),
+      'gender': EnumToString.convertToString(gender),
       'phone': phone,
       'age': age,
       'email': email,
@@ -55,9 +54,10 @@ class PatientData {
   factory PatientData.fromMap(Map<String, dynamic> map) {
     return PatientData(
       name: map['name'] != null ? map['name'] as String : null,
-      // gender: map['gender'] != null ? Gender.fromMap(map['gender'] as Map<String,dynamic>) : null,
+      gender: map['gender'] != null
+          ? EnumToString.fromString(Gender.values, map['gender'] as String)
+          : null,
       phone: map['phone'] != null ? map['phone'] as String : null,
-
       email: map['email'] != null ? map['email'] as String : null,
       address: map['address'] != null ? map['address'] as String : null,
       image: map['image'] != null ? map['image'] as String : null,
@@ -98,8 +98,6 @@ class PatientData {
         image.hashCode;
   }
 }
-
-enum Gender { male, female, other }
 
 extension PatientDataExt on PatientData {
   bool get isMale => gender == Gender.male;
