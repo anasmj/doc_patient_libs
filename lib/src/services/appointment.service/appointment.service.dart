@@ -29,7 +29,6 @@ class AppointmentService extends BaseService<Appointment> {
       if (data == null) return null;
       return Appointment.fromMap(data);
     } catch (e) {
-      // print("Error reading document: $e");
       return null;
     }
   }
@@ -42,7 +41,6 @@ class AppointmentService extends BaseService<Appointment> {
           querySnapshot.docs.map((doc) => doc.data() as RawData).toList();
       return datas.map((data) => Appointment.fromMap(data)).toList();
     } catch (e) {
-      // print("Error reading all documents: $e");
       return [];
     }
   }
@@ -53,7 +51,6 @@ class AppointmentService extends BaseService<Appointment> {
       await _chemberCollection.doc(id).update(data.toMap());
       return true;
     } catch (e) {
-      // print("Error updating document: $e");
       return false;
     }
   }
