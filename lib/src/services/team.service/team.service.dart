@@ -17,7 +17,7 @@ class TeamService extends BaseService<Admin> {
       DocumentReference docRef = await _collection.add(data);
       return docRef.id;
     } catch (e) {
-      return null;
+      rethrow;
     }
   }
 
@@ -30,7 +30,7 @@ class TeamService extends BaseService<Admin> {
       return Admin.fromMap(data);
     } catch (e) {
       // print("Error reading document: $e");
-      return null;
+      rethrow;
     }
   }
 
@@ -43,7 +43,7 @@ class TeamService extends BaseService<Admin> {
       return datas.map((data) => Admin.fromMap(data)).toList();
     } catch (e) {
       // print("Error reading all documents: $e");
-      return [];
+      rethrow;
     }
   }
 
@@ -54,7 +54,7 @@ class TeamService extends BaseService<Admin> {
       return true;
     } catch (e) {
       // print("Error updating document: $e");
-      return false;
+      rethrow;
     }
   }
 
@@ -65,7 +65,7 @@ class TeamService extends BaseService<Admin> {
       return true;
     } catch (e) {
       // print("Error deleting document: $e");
-      return false;
+      rethrow;
     }
   }
 }
