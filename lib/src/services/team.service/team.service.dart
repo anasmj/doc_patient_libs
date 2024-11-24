@@ -1,5 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:doc_patient_libs/src/models/src/admin.dart';
+import 'package:doc_patient_libs/doc_patient_libs.dart';
 import 'package:doc_patient_libs/src/services/base.service.dart';
 import 'package:doc_patient_libs/src/services/collections.dart';
 
