@@ -8,13 +8,13 @@ class AppointmentService extends BaseService<Appointment> {
 
   static final AppointmentService instance = AppointmentService._();
 
-  final CollectionReference _chemberCollection =
+  final CollectionReference _collection =
       FirebaseFirestore.instance.collection(Collection.appointments);
 
   @override
   Future<String?> create(Appointment data) async {
     try {
-      DocumentReference docRef = await _chemberCollection.add(data.toMap());
+      DocumentReference docRef = await _collection.add(data.toMap());
       return docRef.id;
     } catch (e) {
       return null;
@@ -24,7 +24,7 @@ class AppointmentService extends BaseService<Appointment> {
   @override
   Future<Appointment?> getSingle(String id) async {
     try {
-      DocumentSnapshot doc = await _chemberCollection.doc(id).get();
+      DocumentSnapshot doc = await _collection.doc(id).get();
       final data = doc.exists ? doc.data() as RawData : null;
       if (data == null) return null;
       return Appointment.fromMap(data);
@@ -36,7 +36,7 @@ class AppointmentService extends BaseService<Appointment> {
   @override
   Future<List<Appointment>> getAll() async {
     try {
-      QuerySnapshot querySnapshot = await _chemberCollection.get();
+      QuerySnapshot querySnapshot = await _collection.get();
       final datas =
           querySnapshot.docs.map((doc) => doc.data() as RawData).toList();
       return datas.map((data) => Appointment.fromMap(data)).toList();
@@ -48,7 +48,7 @@ class AppointmentService extends BaseService<Appointment> {
   @override
   Future<bool> update(String id, Appointment data) async {
     try {
-      await _chemberCollection.doc(id).update(data.toMap());
+      await _collection.doc(id).update(data.toMap());
       return true;
     } catch (e) {
       return false;
@@ -58,7 +58,7 @@ class AppointmentService extends BaseService<Appointment> {
   @override
   Future<bool> delete(String id) async {
     try {
-      await _chemberCollection.doc(id).delete();
+      await _collection.doc(id).delete();
       return true;
     } catch (e) {
       // print("Error deleting document: $e");

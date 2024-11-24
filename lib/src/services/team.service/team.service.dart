@@ -1,18 +1,18 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:doc_patient_libs/src/models/models.dart';
+import 'package:doc_patient_libs/src/models/src/admin.dart';
 import 'package:doc_patient_libs/src/services/base.service.dart';
 import 'package:doc_patient_libs/src/services/collections.dart';
 
-class ChemberService extends BaseService<Chember> {
-  ChemberService._();
+class TeamService extends BaseService<Admin> {
+  TeamService._();
 
-  static final ChemberService instance = ChemberService._();
+  static final TeamService instance = TeamService._();
 
   final CollectionReference _collection =
-      FirebaseFirestore.instance.collection(Collection.chember);
+      FirebaseFirestore.instance.collection(Collection.adminTeam);
 
   @override
-  Future<String?> create(Chember data) async {
+  Future<String?> create(Admin data) async {
     try {
       DocumentReference docRef = await _collection.add(data);
       return docRef.id;
@@ -22,12 +22,12 @@ class ChemberService extends BaseService<Chember> {
   }
 
   @override
-  Future<Chember?> getSingle(String id) async {
+  Future<Admin?> getSingle(String id) async {
     try {
       DocumentSnapshot doc = await _collection.doc(id).get();
       final data = doc.exists ? doc.data() as RawData : null;
       if (data == null) return null;
-      return Chember.fromMap(data);
+      return Admin.fromMap(data);
     } catch (e) {
       // print("Error reading document: $e");
       return null;
@@ -35,12 +35,12 @@ class ChemberService extends BaseService<Chember> {
   }
 
   @override
-  Future<List<Chember>> getAll() async {
+  Future<List<Admin>> getAll() async {
     try {
       QuerySnapshot querySnapshot = await _collection.get();
       final datas =
           querySnapshot.docs.map((doc) => doc.data() as RawData).toList();
-      return datas.map((data) => Chember.fromMap(data)).toList();
+      return datas.map((data) => Admin.fromMap(data)).toList();
     } catch (e) {
       // print("Error reading all documents: $e");
       return [];
@@ -48,7 +48,7 @@ class ChemberService extends BaseService<Chember> {
   }
 
   @override
-  Future<bool> update(String id, Chember data) async {
+  Future<bool> update(String id, Admin data) async {
     try {
       await _collection.doc(id).update(data.toMap());
       return true;
