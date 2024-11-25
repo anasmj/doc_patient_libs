@@ -5,7 +5,7 @@ class TeamService extends FirebaseCRUD {
   TeamService() : super(collection: 'team');
   static final TeamService instance = TeamService();
 
-  Future<String?> createTeam(Admin admin) async {
+  Future<String?> addTeamMember(Admin admin) async {
     try {
       return await create(admin.toMap());
     } catch (e) {
@@ -13,7 +13,7 @@ class TeamService extends FirebaseCRUD {
     }
   }
 
-  Future<Admin?> getAdmin(String id) async {
+  Future<Admin?> getTeamMember(String id) async {
     try {
       final adminData = await getSingle(id);
       if (adminData == null) return null;
@@ -41,8 +41,8 @@ class TeamService extends FirebaseCRUD {
     }
   }
 
-  @override
-  Future<bool> delete(String id) async {
+   
+  Future<bool> deleteTeamMember(String id) async {
     try {
       return await delete(id);
     } catch (e) {
