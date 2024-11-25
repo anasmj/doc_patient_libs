@@ -3,7 +3,7 @@ import 'package:doc_patient_libs/src/services/frebase.crud.dart';
 
 class TeamService extends FirebaseCRUD {
   TeamService() : super(collection: 'team');
-  // static final TeamService instance = TeamService();
+  static final TeamService instance = TeamService();
 
   Future<String?> createTeam(Admin admin) async {
     try {
@@ -23,7 +23,7 @@ class TeamService extends FirebaseCRUD {
     }
   }
 
-  Future<List<Admin>> getTeamMembers() async {
+   Future<List<Admin>> getTeamMembers() async {
     try {
       final membersData = await getAll();
       return membersData.map((data) => Admin.fromMap(data)).toList();
