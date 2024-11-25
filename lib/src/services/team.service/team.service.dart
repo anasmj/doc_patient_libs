@@ -1,59 +1,42 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:doc_patient_libs/doc_patient_libs.dart';
-import 'package:doc_patient_libs/src/services/base.service.dart';
-import 'package:doc_patient_libs/src/services/collections.dart';
+import 'package:doc_patient_libs/src/services/frebase.crud.dart';
 
-class TeamService extends BaseService<Admin> {
-  TeamService._();
+class TeamService extends FirebaseCRUD {
+  TeamService() : super(collection: 'team');
+  // static final TeamService instance = TeamService();
 
-  static final TeamService instance = TeamService._();
-
-  final CollectionReference _collection =
-      FirebaseFirestore.instance.collection(Collection.adminTeam);
-
-  @override
-  Future<String?> create(Admin data) async {
+  Future<String?> createTeam(Admin admin) async {
     try {
-      DocumentReference docRef = await _collection.add(data);
-      return docRef.id;
+      return await create(admin.toMap());
     } catch (e) {
       rethrow;
     }
   }
 
-  @override
-  Future<Admin?> getSingle(String id) async {
+  Future<Admin?> getAdmin(String id) async {
     try {
-      DocumentSnapshot doc = await _collection.doc(id).get();
-      final data = doc.exists ? doc.data() as RawData : null;
-      if (data == null) return null;
-      return Admin.fromMap(data);
+      final adminData = await getSingle(id);
+      if (adminData == null) return null;
+      return Admin.fromMap(adminData);
     } catch (e) {
-      // print("Error reading document: $e");
       rethrow;
     }
   }
 
-  @override
-  Future<List<Admin>> getAll() async {
+  Future<List<Admin>> getTeamMembers() async {
     try {
-      QuerySnapshot querySnapshot = await _collection.get();
-      final datas =
-          querySnapshot.docs.map((doc) => doc.data() as RawData).toList();
-      return datas.map((data) => Admin.fromMap(data)).toList();
+      final membersData = await getAll();
+      return membersData.map((data) => Admin.fromMap(data)).toList();
     } catch (e) {
       // print("Error reading all documents: $e");
       rethrow;
     }
   }
 
-  @override
-  Future<bool> update(String id, Admin data) async {
+  Future<bool> updateTeamMember(String id, Admin data) async {
     try {
-      await _collection.doc(id).update(data.toMap());
-      return true;
+      return await update(id, data.toMap());
     } catch (e) {
-      // print("Error updating document: $e");
       rethrow;
     }
   }
@@ -61,10 +44,8 @@ class TeamService extends BaseService<Admin> {
   @override
   Future<bool> delete(String id) async {
     try {
-      await _collection.doc(id).delete();
-      return true;
+      return await delete(id);
     } catch (e) {
-      // print("Error deleting document: $e");
       rethrow;
     }
   }
