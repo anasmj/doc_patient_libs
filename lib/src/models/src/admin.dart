@@ -1,6 +1,6 @@
 part of '../models.dart';
 
-class Admin {
+class TeamMember {
   String? id;
   String? name;
   String? email;
@@ -8,7 +8,7 @@ class Admin {
   String? phone;
   String? profileImage;
 
-  Admin({
+  TeamMember({
     this.id,
     this.name,
     this.email,
@@ -17,7 +17,7 @@ class Admin {
     this.profileImage,
   });
 
-  Admin copyWith({
+  TeamMember copyWith({
     String? id,
     String? name,
     String? email,
@@ -25,7 +25,7 @@ class Admin {
     String? phone,
     String? profileImage,
   }) {
-    return Admin(
+    return TeamMember(
       id: id ?? this.id,
       name: name ?? this.name,
       email: email ?? this.email,
@@ -46,8 +46,8 @@ class Admin {
     };
   }
 
-  factory Admin.fromMap(Map<String, dynamic> map) {
-    return Admin(
+  factory TeamMember.fromMap(Map<String, dynamic> map) {
+    return TeamMember(
       id: map['id'] != null ? map['id'] as String : null,
       name: map['name'] != null ? map['name'] as String : null,
       email: map['email'] != null ? map['email'] as String : null,
@@ -60,8 +60,8 @@ class Admin {
 
   String toJson() => json.encode(toMap());
 
-  factory Admin.fromJson(String source) =>
-      Admin.fromMap(json.decode(source) as Map<String, dynamic>);
+  factory TeamMember.fromJson(String source) =>
+      TeamMember.fromMap(json.decode(source) as Map<String, dynamic>);
 
   @override
   String toString() {
@@ -69,7 +69,7 @@ class Admin {
   }
 
   @override
-  bool operator ==(covariant Admin other) {
+  bool operator ==(covariant TeamMember other) {
     if (identical(this, other)) return true;
 
     return other.id == id &&
