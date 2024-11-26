@@ -14,4 +14,4 @@ part '../models/src/slot.dart';
 part '../models/src/enums.dart';
 
 part '../models/src/profile.dart';
-part '../models/src/admin.dart';
+part 'src/team.member.dart';
