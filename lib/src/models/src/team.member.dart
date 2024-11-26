@@ -7,6 +7,7 @@ class TeamMember {
   String? password;
   String? phone;
   String? profileImage;
+  List<String>? tokens;
 
   TeamMember({
     this.id,
@@ -15,6 +16,7 @@ class TeamMember {
     this.password,
     this.phone,
     this.profileImage,
+    this.tokens,
   });
 
   TeamMember copyWith({
@@ -24,6 +26,7 @@ class TeamMember {
     String? password,
     String? phone,
     String? profileImage,
+    List<String>? tokens,
   }) {
     return TeamMember(
       id: id ?? this.id,
@@ -32,6 +35,7 @@ class TeamMember {
       password: password ?? this.password,
       phone: phone ?? this.phone,
       profileImage: profileImage ?? this.profileImage,
+      tokens: tokens ?? this.tokens,
     );
   }
 
@@ -43,6 +47,7 @@ class TeamMember {
       'password': password,
       'phone': phone,
       'profileImage': profileImage,
+      'tokens': tokens,
     };
   }
 
@@ -55,6 +60,7 @@ class TeamMember {
       phone: map['phone'] != null ? map['phone'] as String : null,
       profileImage:
           map['profileImage'] != null ? map['profileImage'] as String : null,
+      tokens: map['tokens'] != null ? List<String>.from(map['tokens']) : null,
     );
   }
 
@@ -65,7 +71,7 @@ class TeamMember {
 
   @override
   String toString() {
-    return 'Admin(id: $id, name: $name, email: $email, password: $password, phone: $phone, profileImage: $profileImage)';
+    return 'Admin(id: $id, name: $name, email: $email, password: $password, phone: $phone, profileImage: $profileImage, tokens: $tokens)';
   }
 
   @override
