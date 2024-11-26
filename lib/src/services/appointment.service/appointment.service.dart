@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:doc_patient_libs/src/models/models.dart';
 import 'package:doc_patient_libs/src/services/base.service.dart';
-import 'package:doc_patient_libs/src/services/collections.dart';
+import 'package:doc_patient_libs/src/services/service.collections.dart';
 
 class AppointmentService extends BaseService<Appointment> {
   AppointmentService._();
@@ -9,7 +9,7 @@ class AppointmentService extends BaseService<Appointment> {
   static final AppointmentService instance = AppointmentService._();
 
   final CollectionReference _collection =
-      FirebaseFirestore.instance.collection(Collection.appointments);
+      FirebaseFirestore.instance.collection(ServiceCollection.appointments);
 
   @override
   Future<String?> create(Appointment data) async {

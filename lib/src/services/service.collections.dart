@@ -1,4 +1,4 @@
-class Collection {
+class ServiceCollection {
   static const admins = 'admins';
   static const users = 'users';
   static const appointments = 'appointments';

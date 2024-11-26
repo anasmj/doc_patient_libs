@@ -1,9 +1,9 @@
 import 'package:doc_patient_libs/doc_patient_libs.dart';
-import 'package:doc_patient_libs/src/services/collections.dart';
+import 'package:doc_patient_libs/src/services/service.collections.dart';
 import 'package:doc_patient_libs/src/services/frebase.crud.dart';
 
 class TeamService extends FirebaseCRUD {
-  TeamService() : super(collection: Collection.adminTeamMembers);
+  TeamService() : super(collection: ServiceCollection.adminTeamMembers);
   static final TeamService instance = TeamService();
 
   Future<String?> addTeamMember(TeamMember member) async {

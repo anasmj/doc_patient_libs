@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:doc_patient_libs/src/models/models.dart';
 import 'package:doc_patient_libs/src/services/base.service.dart';
-import 'package:doc_patient_libs/src/services/collections.dart';
+import 'package:doc_patient_libs/src/services/service.collections.dart';
 
 class ChemberService extends BaseService<Chember> {
   ChemberService._();
@@ -9,7 +9,7 @@ class ChemberService extends BaseService<Chember> {
   static final ChemberService instance = ChemberService._();
 
   final CollectionReference _collection =
-      FirebaseFirestore.instance.collection(Collection.chember);
+      FirebaseFirestore.instance.collection(ServiceCollection.chember);
 
   @override
   Future<String?> create(Chember data) async {
