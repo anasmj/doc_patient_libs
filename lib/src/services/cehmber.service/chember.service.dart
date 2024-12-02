@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:doc_patient_libs/src/models/models.dart';
 import 'package:doc_patient_libs/src/services/base.service.dart';
 import 'package:doc_patient_libs/src/services/service.collections.dart';
+import 'package:flutter/foundation.dart';
 
 class ChemberService extends BaseService<Chember> {
   ChemberService._();
@@ -42,7 +43,7 @@ class ChemberService extends BaseService<Chember> {
           querySnapshot.docs.map((doc) => doc.data() as RawData).toList();
       return datas.map((data) => Chember.fromMap(data)).toList();
     } catch (e) {
-      // print("Error reading all documents: $e");
+      debugPrint("Error reading all documents: $e");
       return [];
     }
   }
