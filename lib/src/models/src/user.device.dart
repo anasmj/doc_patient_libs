@@ -1,19 +1,15 @@
 part of '../models.dart';
 
-
-class DeviceInfo {
+class UserDevice {
   String? deviceId;
   String? token;
-  DeviceInfo({
-    this.deviceId,
-    this.token,
-  });
+  UserDevice({this.deviceId, this.token});
 
-  DeviceInfo copyWith({
+  UserDevice copyWith({
     String? deviceId,
     String? token,
   }) {
-    return DeviceInfo(
+    return UserDevice(
       deviceId: deviceId ?? this.deviceId,
       token: token ?? this.token,
     );
@@ -26,8 +22,8 @@ class DeviceInfo {
     };
   }
 
-  factory DeviceInfo.fromMap(Map<String, dynamic> map) {
-    return DeviceInfo(
+  factory UserDevice.fromMap(Map<String, dynamic> map) {
+    return UserDevice(
       deviceId: map['deviceId'] != null ? map['deviceId'] as String : null,
       token: map['token'] != null ? map['token'] as String : null,
     );
@@ -35,14 +31,14 @@ class DeviceInfo {
 
   String toJson() => json.encode(toMap());
 
-  factory DeviceInfo.fromJson(String source) =>
-      DeviceInfo.fromMap(json.decode(source) as Map<String, dynamic>);
+  factory UserDevice.fromJson(String source) =>
+      UserDevice.fromMap(json.decode(source) as Map<String, dynamic>);
 
   @override
-  String toString() => 'DeviceInfo(deviceId: $deviceId, token: $token)';
+  String toString() => 'UserDevice(deviceId: $deviceId, token: $token)';
 
   @override
-  bool operator ==(covariant DeviceInfo other) {
+  bool operator ==(covariant UserDevice other) {
     if (identical(this, other)) return true;
 
     return other.deviceId == deviceId && other.token == token;

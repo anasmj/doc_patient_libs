@@ -14,4 +14,4 @@ part '../models/src/slot.dart';
 part '../models/src/enums.dart';
 
 part '../models/src/profile.dart';
-part '../models/src/device.info.dart';
+part 'src/user.device.dart';
