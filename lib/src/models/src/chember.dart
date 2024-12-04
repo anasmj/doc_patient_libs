@@ -15,9 +15,9 @@ class Chember {
   final String? id;
   final String? name;
   final String? address;
-  final int? roomNo;
+  final String? roomNo;
   final String? chemberEmail;
-  final List<String>? phone;
+  final String? phone;
   final String? floor;
 
   final double? lat;
@@ -41,9 +41,9 @@ class Chember {
     String? id,
     String? name,
     String? address,
-    int? roomNo,
+    String? roomNo,
     String? chemberEmail,
-    List<String>? phone,
+    String? phone,
     String? floor,
     String? web,
     double? lat,
@@ -84,12 +84,13 @@ class Chember {
       id: map['id'] != null ? map['id'] as String : null,
       name: map['name'] != null ? map['name'] as String : null,
       address: map['address'] != null ? map['address'] as String : null,
-      roomNo: map['roomNo'] != null ? map['roomNo'] as int : null,
+      roomNo: map['roomNo'] != null ? map['roomNo'] as String : null,
       chemberEmail:
           map['chemberEmail'] != null ? map['chemberEmail'] as String : null,
-      phone: map['phone'] != null
-          ? List<String>.from((map['phone'] as List<String>))
-          : null,
+      phone: map['phone'] != null ? map['phone'] as String : null,
+      // phone: map['phone'] != null
+      //     ? List<String>.from((map['phone'] as List<String>))
+      //     : null,
       floor: map['floor'] != null ? map['floor'] as String : null,
       lat: map['lat'] != null ? map['lat'] as double : null,
       long: map['long'] != null ? map['long'] as double : null,
@@ -120,7 +121,8 @@ class Chember {
         other.address == address &&
         other.roomNo == roomNo &&
         other.chemberEmail == chemberEmail &&
-        listEquals(other.phone, phone) &&
+        other.phone == phone &&
+        // listEquals(other.phone, phone) &&
         other.floor == floor &&
         other.lat == lat &&
         other.long == long &&
