@@ -1,7 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:doc_patient_libs/src/models/models.dart';
+import 'package:doc_patient_libs/doc_patient_libs.dart';
 import 'package:doc_patient_libs/src/services/base.service.dart';
-import 'package:doc_patient_libs/src/services/service.collections.dart';
 
 class AppointmentService extends BaseService<Appointment> {
   AppointmentService._();
@@ -17,7 +16,7 @@ class AppointmentService extends BaseService<Appointment> {
       DocumentReference docRef = await _collection.add(data.toMap());
       return docRef.id;
     } catch (e) {
-      return null;
+      rethrow;
     }
   }
 
@@ -29,7 +28,7 @@ class AppointmentService extends BaseService<Appointment> {
       if (data == null) return null;
       return Appointment.fromMap(data);
     } catch (e) {
-      return null;
+      rethrow;
     }
   }
 
@@ -41,7 +40,7 @@ class AppointmentService extends BaseService<Appointment> {
           querySnapshot.docs.map((doc) => doc.data() as RawData).toList();
       return datas.map((data) => Appointment.fromMap(data)).toList();
     } catch (e) {
-      return [];
+      rethrow;
     }
   }
 
@@ -51,7 +50,7 @@ class AppointmentService extends BaseService<Appointment> {
       await _collection.doc(id).update(data.toMap());
       return true;
     } catch (e) {
-      return false;
+      rethrow;
     }
   }
 
@@ -62,7 +61,7 @@ class AppointmentService extends BaseService<Appointment> {
       return true;
     } catch (e) {
       // print("Error deleting document: $e");
-      return false;
+      rethrow;
     }
   }
 }
