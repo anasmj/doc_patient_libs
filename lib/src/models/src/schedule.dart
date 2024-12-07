@@ -1,6 +1,5 @@
 part of '../models.dart';
 
-
 class Schedule {
   final Weekday day;
   final List<Slot>? slots;
@@ -9,6 +8,13 @@ class Schedule {
     required this.day,
     this.slots,
   });
+  addSlot(Slot slot) => slots?.add(slot);
+  removeSlot(Slot slot) => slots?.remove(slot);
+
+  updateSlot(Slot prev, Slot newSlot) {
+    slots?.remove(prev);
+    slots?.add(newSlot);
+  }
 
   Schedule copyWith({
     Weekday? day,
