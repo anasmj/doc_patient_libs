@@ -58,6 +58,7 @@ class PatientData {
           ? EnumToString.fromString(Gender.values, map['gender'] as String)
           : null,
       phone: map['phone'] != null ? map['phone'] as String : null,
+      age: map['age'] != null ? map['age'] as int : null,
       email: map['email'] != null ? map['email'] as String : null,
       address: map['address'] != null ? map['address'] as String : null,
       image: map['image'] != null ? map['image'] as String : null,
