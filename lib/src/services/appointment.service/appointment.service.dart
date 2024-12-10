@@ -28,6 +28,18 @@ class AppointmentService {
     }
   }
 
+  // Get all appointments in a specific collection
+  static Future<List<Map<String, dynamic>>> getAll(
+      String collectionName) async {
+    try {
+      final snapshot = await _firestore.collection(collectionName).get();
+      return snapshot.docs.map((doc) => doc.data()).toList();
+    } catch (e) {
+      debugPrint('Error fetching appointments: $e');
+      return [];
+    }
+  }
+
   // Update an existing appointment
   static Future<void> update(String collectionName, String appointmentId,
       Map<String, dynamic> updatedData) async {
