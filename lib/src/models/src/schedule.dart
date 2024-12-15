@@ -1,10 +1,12 @@
 part of '../models.dart';
 
 class Schedule {
+  final String id;
   final Weekday day;
   final List<Slot>? slots;
 
   Schedule({
+    required this.id,
     required this.day,
     this.slots,
   });
@@ -17,10 +19,12 @@ class Schedule {
   }
 
   Schedule copyWith({
+    String? id,
     Weekday? day,
     List<Slot>? slots,
   }) {
     return Schedule(
+      id: id ?? this.id,
       day: day ?? this.day,
       slots: slots ?? this.slots,
     );
@@ -28,6 +32,7 @@ class Schedule {
 
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
+      'id': id,
       'day': day.toString(),
       'slots': slots?.map((x) => x.toMap()).toList(),
     };
@@ -35,6 +40,7 @@ class Schedule {
 
   factory Schedule.fromMap(Map<String, dynamic> map) {
     return Schedule(
+      id: map['id'] as String,
       day: Weekday.fromString(map['day'] as String)!,
       slots: map['slots'] != null
           ? (map['slots'] as List)
@@ -54,11 +60,12 @@ class Schedule {
 
   @override
   bool operator ==(covariant Schedule other) {
+    if (other.runtimeType != runtimeType) return false;
     if (identical(this, other)) return true;
 
-    return other.day == day && listEquals(other.slots, slots);
+    return other.id == id && other.day == day && listEquals(other.slots, slots);
   }
 
   @override
-  int get hashCode => day.hashCode ^ slots.hashCode;
+  int get hashCode => id.hashCode ^ day.hashCode ^ slots.hashCode;
 }
