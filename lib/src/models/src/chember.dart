@@ -1,15 +1,16 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 part of '../models.dart';
 
-final defaultSchedules = [
-  Schedule(day: Weekday.monday),
-  Schedule(day: Weekday.tuesday),
-  Schedule(day: Weekday.wednesday),
-  Schedule(day: Weekday.thursday),
-  Schedule(day: Weekday.friday),
-  Schedule(day: Weekday.saturday),
-  Schedule(day: Weekday.sunday),
-];
+const uuid = Uuid();
+List<Schedule> get defaultSchedules => [
+      Schedule(day: Weekday.monday, id: uuid.v4()),
+      Schedule(day: Weekday.tuesday, id: uuid.v4()),
+      Schedule(day: Weekday.wednesday, id: uuid.v4()),
+      Schedule(day: Weekday.thursday, id: uuid.v4()),
+      Schedule(day: Weekday.friday, id: uuid.v4()),
+      Schedule(day: Weekday.saturday, id: uuid.v4()),
+      Schedule(day: Weekday.sunday, id: uuid.v4()),
+    ];
 
 class Chember {
   final String? id;

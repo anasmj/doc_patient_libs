@@ -40,7 +40,7 @@ class Schedule {
 
   factory Schedule.fromMap(Map<String, dynamic> map) {
     return Schedule(
-      id: map['id'] as String,
+      id: map['id'] != null ? map['id'] as String : null,
       day: Weekday.fromString(map['day'] as String)!,
       slots: map['slots'] != null
           ? (map['slots'] as List)

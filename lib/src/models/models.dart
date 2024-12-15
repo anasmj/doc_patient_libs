@@ -5,6 +5,7 @@ import 'package:doc_patient_libs/src/models/src/profile.type.dart';
 import 'package:enum_to_string/enum_to_string.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:uuid/uuid.dart';
 
 part '../models/src/appointment.dart';
 part '../models/src/chember.dart';
