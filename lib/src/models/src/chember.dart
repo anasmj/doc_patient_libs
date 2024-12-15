@@ -1,15 +1,15 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 part of '../models.dart';
 
-final defaultSchedules = [
-  Schedule(day: Weekday.monday),
-  Schedule(day: Weekday.tuesday),
-  Schedule(day: Weekday.wednesday),
-  Schedule(day: Weekday.thursday),
-  Schedule(day: Weekday.friday),
-  Schedule(day: Weekday.saturday),
-  Schedule(day: Weekday.sunday),
-];
+// final defaultSchedules = [
+//   Schedule(day: Weekday.monday),
+//   Schedule(day: Weekday.tuesday),
+//   Schedule(day: Weekday.wednesday),
+//   Schedule(day: Weekday.thursday),
+//   Schedule(day: Weekday.friday),
+//   Schedule(day: Weekday.saturday),
+//   Schedule(day: Weekday.sunday),
+// ];
 
 class Chember {
   final String? id;

@@ -1,12 +1,12 @@
 part of '../models.dart';
 
 class Schedule {
-  final String id;
+  final String? id;
   final Weekday day;
   final List<Slot>? slots;
 
   Schedule({
-    required this.id,
+    this.id,
     required this.day,
     this.slots,
   });
