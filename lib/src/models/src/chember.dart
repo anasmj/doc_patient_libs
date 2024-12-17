@@ -17,12 +17,11 @@ class Chember {
   final String? name;
   final String? address;
   final String? roomNo;
+  final int? minuteperPatient;
   final String? chemberEmail;
   final String? phone;
   final String? floor;
 
-  final double? lat;
-  final double? long;
   final List<Schedule>? schedules;
   final int? firstVisitFee;
   final int? followupFee;
@@ -33,10 +32,9 @@ class Chember {
       this.address,
       this.roomNo,
       this.chemberEmail,
+      this.minuteperPatient,
       this.phone,
       this.floor,
-      this.lat,
-      this.long,
       this.schedules,
       this.firstVisitFee,
       this.followupFee});
@@ -49,6 +47,7 @@ class Chember {
     String? chemberEmail,
     String? phone,
     String? floor,
+    int? minuteperPatient,
     String? web,
     double? lat,
     double? long,
@@ -61,11 +60,10 @@ class Chember {
         name: name ?? this.name,
         address: address ?? this.address,
         roomNo: roomNo ?? this.roomNo,
+        minuteperPatient: minuteperPatient ?? this.minuteperPatient,
         chemberEmail: chemberEmail ?? this.chemberEmail,
         phone: phone ?? this.phone,
         floor: floor ?? this.floor,
-        lat: lat ?? this.lat,
-        long: long ?? this.long,
         schedules: schedules ?? this.schedules,
         firstVisitFee: firstVisitFee ?? this.firstVisitFee,
         followupFee: followupFee ?? this.followupFee);
@@ -77,11 +75,10 @@ class Chember {
       'name': name,
       'address': address,
       'roomNo': roomNo,
+      'minuteperPatient': minuteperPatient,
       'chemberEmail': chemberEmail,
       'phone': phone,
       'floor': floor,
-      'lat': lat,
-      'long': long,
       'schedules': schedules?.map((x) => x.toMap()).toList(),
       'firstVisitFee': firstVisitFee,
       'followupFee': followupFee
@@ -97,12 +94,13 @@ class Chember {
         chemberEmail:
             map['chemberEmail'] != null ? map['chemberEmail'] as String : null,
         phone: map['phone'] != null ? map['phone'] as String : null,
+        minuteperPatient: map['minuteperPatient'] != null
+            ? map['minuteperPatient'] as int
+            : null,
         // phone: map['phone'] != null
         //     ? List<String>.from((map['phone'] as List<String>))
         //     : null,
         floor: map['floor'] != null ? map['floor'] as String : null,
-        lat: map['lat'] != null ? map['lat'] as double : null,
-        long: map['long'] != null ? map['long'] as double : null,
         schedules: map['schedules'] != null
             ? (map['schedules'] as List)
                 .map((scheduleData) => Schedule.fromMap(scheduleData))
@@ -121,7 +119,7 @@ class Chember {
 
   @override
   String toString() {
-    return 'Chember(name: $name, address: $address, roomNo: $roomNo, chemberEmail: $chemberEmail, phone: $phone, floor: $floor, lat: $lat, long: $long, schedules: $schedules, firstVisitFee: $firstVisitFee, followupFee: $followupFee)';
+    return 'Chember(name: $name, address: $address, roomNo: $roomNo, chemberEmail: $chemberEmail, phone: $phone, floor: $floor, minuteperPatient: $minuteperPatient schedules: $schedules, firstVisitFee: $firstVisitFee, followupFee: $followupFee)';
   }
 
   @override
@@ -132,12 +130,11 @@ class Chember {
         other.id == id &&
         other.address == address &&
         other.roomNo == roomNo &&
+        other.minuteperPatient == minuteperPatient &&
         other.chemberEmail == chemberEmail &&
         other.phone == phone &&
         // listEquals(other.phone, phone) &&
         other.floor == floor &&
-        other.lat == lat &&
-        other.long == long &&
         other.firstVisitFee == firstVisitFee &&
         other.followupFee == followupFee &&
         listEquals(other.schedules, schedules);
@@ -150,10 +147,9 @@ class Chember {
         address.hashCode ^
         roomNo.hashCode ^
         chemberEmail.hashCode ^
+        minuteperPatient.hashCode ^
         phone.hashCode ^
         floor.hashCode ^
-        lat.hashCode ^
-        long.hashCode ^
         firstVisitFee.hashCode ^
         followupFee.hashCode ^
         schedules.hashCode;
