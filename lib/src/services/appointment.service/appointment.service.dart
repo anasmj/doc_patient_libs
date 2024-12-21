@@ -1,6 +1,11 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/foundation.dart';
 
+///use these keywords to work with collections
+const reqeusted = 'requested';
+const confirmed = 'confirmed';
+const past = 'past';
+
 class AppointmentService {
   // Firestore instance (can be shared across static methods)
   static final FirebaseFirestore _firestore = FirebaseFirestore.instance;
