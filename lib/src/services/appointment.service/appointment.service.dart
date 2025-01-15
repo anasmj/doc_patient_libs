@@ -1,15 +1,15 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:doc_patient_libs/doc_patient_libs.dart';
 import 'package:flutter/foundation.dart';
 
 ///use these keywords to work with collections
-const reqeusted = 'requested';
-const confirmed = 'confirmed';
-const past = 'past';
 
 class AppointmentService {
   // Firestore instance (can be shared across static methods)
   static final FirebaseFirestore _firestore = FirebaseFirestore.instance;
-
+  static const reqeusted = 'requested_appointments';
+  static const approved = 'approved_appointments';
+  static const past = 'past_appointments';
   // Create a new appointment
   static Future<void> create(String collectionName, String appointmentId,
       Map<String, dynamic> data) async {
@@ -97,8 +97,36 @@ class AppointmentService {
       debugPrint('Error moving appointment: $e');
     }
   }
-}
 
+  ///Takes appointment object and moves it to [approved] collection and  deletes from [reqeusted].
+  static Future<void> approve(Appointment appt) async {
+    try {
+      final docRef = _firestore.collection(reqeusted).doc(appt.id);
+      final snapshot = await docRef.get();
+      if (!snapshot.exists) return;
+      await _firestore.collection(approved).doc(appt.id).set(appt.toMap());
+      await docRef.delete();
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  ///Takes appointment ID and moves it to [past] collection
+  static Future<void> done(String id) async {
+    try {
+      final docRef = _firestore.collection(approved).doc(id);
+      final snapshot = await docRef.get();
+
+      if (!snapshot.exists) return;
+      final data = snapshot.data();
+      if (data == null) return;
+      await _firestore.collection(past).doc(id).set(data);
+      await docRef.delete();
+    } catch (e) {
+      rethrow;
+    }
+  }
+}
 
 // class AppointmentService extends BaseService<Appointment> {
 //   AppointmentService._();
