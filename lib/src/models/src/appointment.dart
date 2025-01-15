@@ -1,15 +1,13 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 part of '../models.dart';
 
-
-
 class Appointment {
   final String? id;
   final PatientData? patientData;
+  final int? serial;
   final DateTime? dateTime;
   final Chember? chember;
   final AppointmentType? type;
-
   final AppointmentStatus? status;
 
   Appointment({
@@ -17,6 +15,7 @@ class Appointment {
     this.patientData,
     this.dateTime,
     this.chember,
+    this.serial,
     this.type = AppointmentType.firstTime,
     this.status = AppointmentStatus.pending,
   });
@@ -24,6 +23,7 @@ class Appointment {
   Appointment copyWith({
     String? id,
     PatientData? patientData,
+    int? serial,
     DateTime? dateTime,
     Chember? chember,
     AppointmentType? type,
@@ -31,6 +31,7 @@ class Appointment {
   }) {
     return Appointment(
       id: id ?? this.id,
+      serial: serial ?? this.serial,
       patientData: patientData ?? this.patientData,
       dateTime: dateTime ?? this.dateTime,
       chember: chember ?? this.chember,
@@ -42,6 +43,7 @@ class Appointment {
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
       'id': id,
+      'serial': serial,
       'patientData': patientData?.toMap(),
       'dateTime': dateTime?.millisecondsSinceEpoch,
       'chember': chember?.toMap(),
@@ -56,6 +58,7 @@ class Appointment {
       patientData: map['patientData'] != null
           ? PatientData.fromMap(map['patientData'] as Map<String, dynamic>)
           : null,
+      serial: map['serial'] != null ? map['serial'] as int : null,
       dateTime: map['dateTime'] != null
           ? DateTime.fromMillisecondsSinceEpoch(map['dateTime'] as int)
           : null,
@@ -78,7 +81,7 @@ class Appointment {
 
   @override
   String toString() {
-    return 'Appointment(id: $id, patientData: $patientData, dateTime: $dateTime, chember: $chember, type: $type, status: $status)';
+    return 'Appointment(id: $id, serial: $serial, patientData: $patientData, dateTime: $dateTime, chember: $chember, type: $type, status: $status)';
   }
 
   @override
@@ -86,6 +89,7 @@ class Appointment {
     if (identical(this, other)) return true;
 
     return other.id == id &&
+        other.serial == serial &&
         other.patientData == patientData &&
         other.dateTime == dateTime &&
         other.chember == chember &&
@@ -96,6 +100,7 @@ class Appointment {
   @override
   int get hashCode {
     return id.hashCode ^
+        serial.hashCode ^
         patientData.hashCode ^
         dateTime.hashCode ^
         chember.hashCode ^
@@ -104,23 +109,11 @@ class Appointment {
   }
 }
 
-
-
 extension AppointmentExt on Appointment {
   bool get isPending => status == AppointmentStatus.pending;
+  @Deprecated('isConfirmed will soon be depricated, use isApproved instead')
   bool get isConfirmed => status == AppointmentStatus.confirmed;
+  bool get isApproved => status == AppointmentStatus.confirmed;
   bool get isCancelled => status == AppointmentStatus.cancelled;
   bool get isValid => dateTime != null && chember != null;
-}
-
-extension EnumExtension on Enum {
-  // Converts an enum value to a string
-  String get toEnumString => toString().split('.').last;
-
-  // Converts a string to an enum value
-  T? fromEnumString<T extends Enum>(String value, List<T> enumValues) {
-    return enumValues.firstWhere(
-      (e) => e.toString().split('.').last == value,
-    );
-  }
 }
