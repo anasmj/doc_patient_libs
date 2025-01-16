@@ -11,10 +11,12 @@ class AppointmentService {
   static const approved = 'approved_appointments';
   static const past = 'past_appointments';
   // Create a new appointment
-  static Future<void> create(
-      String appointmentId, Map<String, dynamic> data) async {
+  static Future<void> create(Appointment appointment) async {
     try {
-      await _firestore.collection(reqeusted).doc(appointmentId).set(data);
+      await _firestore
+          .collection(appointment.serial != null ? approved : reqeusted)
+          .doc(appointment.id)
+          .set(appointment.toMap());
       debugPrint('Appointment created successfully.');
     } catch (e) {
       debugPrint('Error creating appointment: $e');
