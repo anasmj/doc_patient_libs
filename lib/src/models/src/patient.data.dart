@@ -6,17 +6,14 @@ class PatientData {
   Gender? gender;
   String? phone;
   int? age;
-  String? email;
-  String? address;
-  String? image;
+  String? note;
+
   PatientData({
     this.name,
     this.gender = Gender.male,
     this.phone,
     this.age,
-    this.email,
-    this.address,
-    this.image,
+    this.note,
   });
 
   PatientData copyWith({
@@ -26,16 +23,14 @@ class PatientData {
     int? age,
     String? email,
     String? address,
-    String? image,
+    String? note,
   }) {
     return PatientData(
       name: name ?? this.name,
       gender: gender ?? this.gender,
       phone: phone ?? this.phone,
       age: age ?? this.age,
-      email: email ?? this.email,
-      address: address ?? this.address,
-      image: image ?? this.image,
+      note: note ?? this.note,
     );
   }
 
@@ -45,9 +40,7 @@ class PatientData {
       'gender': EnumToString.convertToString(gender),
       'phone': phone,
       'age': age,
-      'email': email,
-      'address': address,
-      'image': image,
+      'note': note,
     };
   }
 
@@ -59,9 +52,7 @@ class PatientData {
           : null,
       phone: map['phone'] != null ? map['phone'] as String : null,
       age: map['age'] != null ? map['age'] as int : null,
-      email: map['email'] != null ? map['email'] as String : null,
-      address: map['address'] != null ? map['address'] as String : null,
-      image: map['image'] != null ? map['image'] as String : null,
+      note: map['note'] != null ? map['note'] as String : null,
     );
   }
 
@@ -72,7 +63,7 @@ class PatientData {
 
   @override
   String toString() {
-    return 'PatientData(name: $name, gender: $gender, phone: $phone, age: $age, email: $email, address: $address, image: $image)';
+    return 'PatientData(name: $name, gender: $gender, phone: $phone, age: $age,  note: $note)';
   }
 
   @override
@@ -83,9 +74,7 @@ class PatientData {
         other.gender == gender &&
         other.phone == phone &&
         other.age == age &&
-        other.email == email &&
-        other.address == address &&
-        other.image == image;
+        other.note == note;
   }
 
   @override
@@ -94,9 +83,7 @@ class PatientData {
         gender.hashCode ^
         phone.hashCode ^
         age.hashCode ^
-        email.hashCode ^
-        address.hashCode ^
-        image.hashCode;
+        note.hashCode;
   }
 }
 
