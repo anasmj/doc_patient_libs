@@ -9,6 +9,7 @@ class Appointment {
   final Chember? chember;
   final AppointmentType? type;
   final AppointmentStatus? status;
+  final String? note;
 
   Appointment({
     this.id,
@@ -18,6 +19,7 @@ class Appointment {
     this.serial,
     this.type = AppointmentType.firstTime,
     this.status = AppointmentStatus.pending,
+    this.note,
   });
 
   Appointment copyWith({
@@ -28,16 +30,17 @@ class Appointment {
     Chember? chember,
     AppointmentType? type,
     AppointmentStatus? status,
+    String? note,
   }) {
     return Appointment(
-      id: id ?? this.id,
-      serial: serial ?? this.serial,
-      patientData: patientData ?? this.patientData,
-      dateTime: dateTime ?? this.dateTime,
-      chember: chember ?? this.chember,
-      type: type ?? this.type,
-      status: status ?? this.status,
-    );
+        id: id ?? this.id,
+        serial: serial ?? this.serial,
+        patientData: patientData ?? this.patientData,
+        dateTime: dateTime ?? this.dateTime,
+        chember: chember ?? this.chember,
+        type: type ?? this.type,
+        status: status ?? this.status,
+        note: note ?? this.note);
   }
 
   Map<String, dynamic> toMap() {
@@ -48,7 +51,8 @@ class Appointment {
       'dateTime': dateTime?.millisecondsSinceEpoch,
       'chember': chember?.toMap(),
       'type': EnumToString.convertToString(type),
-      'status': EnumToString.convertToString(status)
+      'status': EnumToString.convertToString(status),
+      'note': note
     };
   }
 
@@ -71,6 +75,7 @@ class Appointment {
       status: map['status'] != null
           ? EnumToString.fromString(AppointmentStatus.values, map['status'])
           : null,
+      note: map['note'] != null ? map['note'] as String : null,
     );
   }
 
@@ -81,7 +86,7 @@ class Appointment {
 
   @override
   String toString() {
-    return 'Appointment(id: $id, serial: $serial, patientData: $patientData, dateTime: $dateTime, chember: $chember, type: $type, status: $status)';
+    return 'Appointment(id: $id, serial: $serial, patientData: $patientData, dateTime: $dateTime, chember: $chember, type: $type, status: $status, note: $note)';
   }
 
   @override
@@ -94,6 +99,7 @@ class Appointment {
         other.dateTime == dateTime &&
         other.chember == chember &&
         other.type == type &&
+        other.note == note &&
         other.status == status;
   }
 
@@ -105,6 +111,7 @@ class Appointment {
         dateTime.hashCode ^
         chember.hashCode ^
         type.hashCode ^
+        note.hashCode ^
         status.hashCode;
   }
 }
