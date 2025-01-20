@@ -2,18 +2,22 @@
 part of '../models.dart';
 
 class Slot {
+  String? scheduleId;
   final TimeOfDay start;
   final TimeOfDay end;
   Slot({
+    required this.scheduleId,
     required this.start,
     required this.end,
   });
 
   Slot copyWith({
+    String? scheduleId,
     TimeOfDay? start,
     TimeOfDay? end,
   }) {
     return Slot(
+      scheduleId: scheduleId ?? this.scheduleId,
       start: start ?? this.start,
       end: end ?? this.end,
     );
@@ -21,13 +25,16 @@ class Slot {
 
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
+      'scheduleId': scheduleId,
       'start': _timeOfDayToString(start),
       'end': _timeOfDayToString(end),
     };
   }
 
   factory Slot.fromMap(Map<String, dynamic> map) {
+
     return Slot(
+      scheduleId: map['scheduleId'] as String,
       start: _stringToTimeOfDay(map['start'] as String),
       end: _stringToTimeOfDay(map['end'] as String),
     );
@@ -39,7 +46,7 @@ class Slot {
       Slot.fromMap(json.decode(source) as Map<String, dynamic>);
 
   @override
-  String toString() => 'Slot(start: $start, end: $end)';
+  String toString() => 'scheduleId: $scheduleId, Slot(start: $start, end: $end)';
 
   @override
   bool operator ==(covariant Slot other) {
