@@ -4,7 +4,7 @@ part of '../models.dart';
 class Appointment {
   final String? id;
   final PatientData? patientData;
-  final int? serial;
+  final Slot? bookedSlot;
   final DateTime? dateTime;
   final Chember? chember;
   final AppointmentType? type;
@@ -15,7 +15,7 @@ class Appointment {
     this.patientData,
     this.dateTime,
     this.chember,
-    this.serial,
+    this.bookedSlot,
     this.type = AppointmentType.firstTime,
     this.status = AppointmentStatus.pending,
   });
@@ -23,7 +23,7 @@ class Appointment {
   Appointment copyWith({
     String? id,
     PatientData? patientData,
-    int? serial,
+    Slot? bookedSlot,
     DateTime? dateTime,
     Chember? chember,
     AppointmentType? type,
@@ -32,7 +32,7 @@ class Appointment {
   }) {
     return Appointment(
       id: id ?? this.id,
-      serial: serial ?? this.serial,
+      bookedSlot: bookedSlot ?? this.bookedSlot,
       patientData: patientData ?? this.patientData,
       dateTime: dateTime ?? this.dateTime,
       chember: chember ?? this.chember,
@@ -44,7 +44,7 @@ class Appointment {
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
       'id': id,
-      'serial': serial,
+      'bookedSlot': bookedSlot,
       'patientData': patientData?.toMap(),
       'dateTime': dateTime?.millisecondsSinceEpoch,
       'chember': chember?.toMap(),
@@ -59,7 +59,9 @@ class Appointment {
       patientData: map['patientData'] != null
           ? PatientData.fromMap(map['patientData'] as Map<String, dynamic>)
           : null,
-      serial: map['serial'] != null ? map['serial'] as int : null,
+      bookedSlot: map['bookedSlot'] != null
+          ? Slot.fromMap(map['bookedSlot'] as Map<String, dynamic>)
+          : null,
       dateTime: map['dateTime'] != null
           ? DateTime.fromMillisecondsSinceEpoch(map['dateTime'] as int)
           : null,
@@ -82,7 +84,7 @@ class Appointment {
 
   @override
   String toString() {
-    return 'Appointment(id: $id, serial: $serial, patientData: $patientData, dateTime: $dateTime, chember: $chember, type: $type, status: $status)';
+    return 'Appointment(id: $id, bookedSlot: $bookedSlot, patientData: $patientData, dateTime: $dateTime, chember: $chember, type: $type, status: $status)';
   }
 
   @override
@@ -90,7 +92,7 @@ class Appointment {
     if (identical(this, other)) return true;
 
     return other.id == id &&
-        other.serial == serial &&
+        other.bookedSlot == bookedSlot &&
         other.patientData == patientData &&
         other.dateTime == dateTime &&
         other.chember == chember &&
@@ -101,7 +103,7 @@ class Appointment {
   @override
   int get hashCode {
     return id.hashCode ^
-        serial.hashCode ^
+        bookedSlot.hashCode ^
         patientData.hashCode ^
         dateTime.hashCode ^
         chember.hashCode ^

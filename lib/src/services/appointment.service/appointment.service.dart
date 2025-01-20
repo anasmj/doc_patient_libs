@@ -14,7 +14,7 @@ class AppointmentService {
   static Future<void> create(Appointment appointment) async {
     try {
       await _firestore
-          .collection(appointment.serial != null ? approved : reqeusted)
+          .collection(appointment.bookedSlot != null ? approved : reqeusted)
           .doc(appointment.id)
           .set(appointment.toMap());
       debugPrint('Appointment created successfully.');
