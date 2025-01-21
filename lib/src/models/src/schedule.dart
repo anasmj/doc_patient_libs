@@ -3,30 +3,30 @@ part of '../models.dart';
 class Schedule {
   final String? id;
   final Weekday day;
-  final List<Slot>? slots;
+  final List<Timing>? timings;
 
   Schedule({
     this.id,
     required this.day,
-    this.slots,
+    this.timings,
   });
-  addSlot(Slot slot) => slots?.add(slot);
-  removeSlot(Slot slot) => slots?.remove(slot);
+  addTiming(Timing t) => timings?.add(t);
+  removeTiming(Timing t) => timings?.remove(t);
 
-  updateSlot(Slot prev, Slot newSlot) {
-    slots?.remove(prev);
-    slots?.add(newSlot);
+  updateTiming(Timing prev, Timing newT) {
+    timings?.remove(prev);
+    timings?.add(newT);
   }
 
   Schedule copyWith({
     String? id,
     Weekday? day,
-    List<Slot>? slots,
+    List<Timing>? timings,
   }) {
     return Schedule(
       id: id ?? this.id,
       day: day ?? this.day,
-      slots: slots ?? this.slots,
+      timings: timings ?? this.timings,
     );
   }
 
@@ -34,7 +34,7 @@ class Schedule {
     return <String, dynamic>{
       'id': id,
       'day': day.toString(),
-      'slots': slots?.map((x) => x.toMap()).toList(),
+      'timings': timings?.map((x) => x.toMap()).toList(),
     };
   }
 
@@ -42,9 +42,9 @@ class Schedule {
     return Schedule(
       id: map['id'] != null ? map['id'] as String : null,
       day: Weekday.fromString(map['day'] as String)!,
-      slots: map['slots'] != null
-          ? (map['slots'] as List)
-              .map((slotData) => Slot.fromMap(slotData))
+      timings: map['timings'] != null
+          ? (map['timings'] as List)
+              .map((timingData) => Timing.fromMap(timingData))
               .toList()
           : null,
     );
@@ -56,16 +56,18 @@ class Schedule {
       Schedule.fromMap(json.decode(source) as Map<String, dynamic>);
 
   @override
-  String toString() => 'Schedule(day: $day, slots: $slots)';
+  String toString() => 'Schedule(day: $day, timings: $timings)';
 
   @override
   bool operator ==(covariant Schedule other) {
     if (other.runtimeType != runtimeType) return false;
     if (identical(this, other)) return true;
 
-    return other.id == id && other.day == day && listEquals(other.slots, slots);
+    return other.id == id &&
+        other.day == day &&
+        listEquals(other.timings, timings);
   }
 
   @override
-  int get hashCode => id.hashCode ^ day.hashCode ^ slots.hashCode;
+  int get hashCode => id.hashCode ^ day.hashCode ^ timings.hashCode;
 }

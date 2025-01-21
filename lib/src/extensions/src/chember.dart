@@ -13,10 +13,11 @@ extension ChemberExt on Chember {
 
   bool get hasValidSchedule {
     if (schedules == null || schedules!.isEmpty) return false;
-    return schedules!.any((schedule) => hasAtLeastOneSlotInSchedule(schedule));
+    return schedules!
+        .any((schedule) => hasAtLeastOneTimingInSchedule(schedule));
   }
 
-  bool hasAtLeastOneSlotInSchedule(Schedule schedule) {
-    return schedule.slots != null && schedule.slots!.isNotEmpty;
+  bool hasAtLeastOneTimingInSchedule(Schedule schedule) {
+    return schedule.timings != null && schedule.timings!.isNotEmpty;
   }
 }

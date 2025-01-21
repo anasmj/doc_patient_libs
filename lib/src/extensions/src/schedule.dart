@@ -1,11 +1,11 @@
 part of '../extensions.dart';
 
 extension ScheduleExt on Schedule {
-  addSlot(Slot slot) => slots?.add(slot);
-  removeSlot(Slot slot) => slots?.remove(slot);
+  addTiming(Timing timing) => timings?.add(timing);
+  removeTiming(Timing timing) => timings?.remove(timing);
 
-  updateSlot(Slot prev, Slot newSlot) {
-    slots?.remove(prev);
-    slots?.add(newSlot);
+  updateTiming(Timing prev, Timing t) {
+    timings?.remove(prev);
+    timings?.add(t);
   }
 }

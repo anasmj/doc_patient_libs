@@ -3,39 +3,39 @@ part of '../models.dart';
 
 class Slot {
   final String? id;
+  final int? serial;
   final TimeOfDay? start;
-  final TimeOfDay? end;
   Slot({
     this.id,
+    this.serial,
     this.start,
-    this.end,
   });
 
   Slot copyWith({
     String? id,
+    int? serial,
     TimeOfDay? start,
-    TimeOfDay? end,
   }) {
     return Slot(
       id: id ?? this.id,
+      serial: serial ?? this.serial,
       start: start ?? this.start,
-      end: end ?? this.end,
     );
   }
 
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
       'id': id,
+      'serial': serial,
       'start': start != null ? _timeOfDayToString(start!) : null,
-      'end': start != null ? _timeOfDayToString(end!) : null,
     };
   }
 
   factory Slot.fromMap(Map<String, dynamic> map) {
     return Slot(
       id: map['id'] != null ? map['id'] as String : null,
+      serial: map['serial'] != null ? map['serial'] as int : null,
       start: _stringToTimeOfDay(map['start'] as String),
-      end: _stringToTimeOfDay(map['end'] as String),
     );
   }
 
@@ -45,27 +45,14 @@ class Slot {
       Slot.fromMap(json.decode(source) as Map<String, dynamic>);
 
   @override
-  String toString() => 'id: $id, Slot(start: $start, end: $end)';
+  String toString() => 'id: $id,serial: $serial ,  Slot(start: $start)';
 
   @override
   bool operator ==(covariant Slot other) {
     if (identical(this, other)) return true;
-    return other.id == id && other.start == start && other.end == end;
+    return other.id == id && other.serial == serial && other.start == start;
   }
 
   @override
-  int get hashCode => id.hashCode ^ start.hashCode ^ end.hashCode;
-}
-
-String _timeOfDayToString(TimeOfDay time) {
-  final hours = time.hour.toString().padLeft(2, '0');
-  final minutes = time.minute.toString().padLeft(2, '0');
-  return "$hours:$minutes";
-}
-
-TimeOfDay _stringToTimeOfDay(String timeString) {
-  final parts = timeString.split(':');
-  final hours = int.parse(parts[0]);
-  final minutes = int.parse(parts[1]);
-  return TimeOfDay(hour: hours, minute: minutes);
+  int get hashCode => id.hashCode ^ serial.hashCode ^ start.hashCode;
 }
