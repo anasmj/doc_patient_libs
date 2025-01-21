@@ -2,7 +2,7 @@
 part of '../models.dart';
 
 class Slot {
-  final String? index;
+  final int? index;
   final TimeOfDay? start;
   Slot({
     this.index,
@@ -10,8 +10,7 @@ class Slot {
   });
 
   Slot copyWith({
-    String? index,
-    int? serial,
+    int? index,
     TimeOfDay? start,
   }) {
     return Slot(
@@ -29,7 +28,7 @@ class Slot {
 
   factory Slot.fromMap(Map<String, dynamic> map) {
     return Slot(
-      index: map['index'] != null ? map['index'] as String : null,
+      index: map['index'] != null ? map['index'] as int : null,
       start: _stringToTimeOfDay(map['start'] as String),
     );
   }
