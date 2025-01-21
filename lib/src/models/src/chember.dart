@@ -17,7 +17,6 @@ class Chember {
   final String? name;
   final String? address;
   final String? roomNo;
-  final int? minuteperPatient;
   final String? chemberEmail;
   final String? phone;
   final String? floor;
@@ -26,18 +25,18 @@ class Chember {
   final int? firstVisitFee;
   final int? followupFee;
 
-  const Chember(
-      {this.id,
-      this.name,
-      this.address,
-      this.roomNo,
-      this.chemberEmail,
-      this.minuteperPatient,
-      this.phone,
-      this.floor,
-      this.schedules,
-      this.firstVisitFee,
-      this.followupFee});
+  const Chember({
+    this.id,
+    this.name,
+    this.address,
+    this.roomNo,
+    this.chemberEmail,
+    this.phone,
+    this.floor,
+    this.schedules,
+    this.firstVisitFee,
+    this.followupFee,
+  });
 
   Chember copyWith({
     String? id,
@@ -60,7 +59,6 @@ class Chember {
         name: name ?? this.name,
         address: address ?? this.address,
         roomNo: roomNo ?? this.roomNo,
-        minuteperPatient: minuteperPatient ?? this.minuteperPatient,
         chemberEmail: chemberEmail ?? this.chemberEmail,
         phone: phone ?? this.phone,
         floor: floor ?? this.floor,
@@ -75,7 +73,6 @@ class Chember {
       'name': name,
       'address': address,
       'roomNo': roomNo,
-      'minuteperPatient': minuteperPatient,
       'chemberEmail': chemberEmail,
       'phone': phone,
       'floor': floor,
@@ -94,12 +91,6 @@ class Chember {
         chemberEmail:
             map['chemberEmail'] != null ? map['chemberEmail'] as String : null,
         phone: map['phone'] != null ? map['phone'] as String : null,
-        minuteperPatient: map['minuteperPatient'] != null
-            ? map['minuteperPatient'] as int
-            : null,
-        // phone: map['phone'] != null
-        //     ? List<String>.from((map['phone'] as List<String>))
-        //     : null,
         floor: map['floor'] != null ? map['floor'] as String : null,
         schedules: map['schedules'] != null
             ? (map['schedules'] as List)
@@ -119,7 +110,7 @@ class Chember {
 
   @override
   String toString() {
-    return 'Chember(name: $name, address: $address, roomNo: $roomNo, chemberEmail: $chemberEmail, phone: $phone, floor: $floor, minuteperPatient: $minuteperPatient schedules: $schedules, firstVisitFee: $firstVisitFee, followupFee: $followupFee)';
+    return 'Chember(name: $name, address: $address, roomNo: $roomNo, chemberEmail: $chemberEmail, phone: $phone, floor: $floor, schedules: $schedules, firstVisitFee: $firstVisitFee, followupFee: $followupFee)';
   }
 
   @override
@@ -130,7 +121,6 @@ class Chember {
         other.id == id &&
         other.address == address &&
         other.roomNo == roomNo &&
-        other.minuteperPatient == minuteperPatient &&
         other.chemberEmail == chemberEmail &&
         other.phone == phone &&
         // listEquals(other.phone, phone) &&
@@ -147,7 +137,6 @@ class Chember {
         address.hashCode ^
         roomNo.hashCode ^
         chemberEmail.hashCode ^
-        minuteperPatient.hashCode ^
         phone.hashCode ^
         floor.hashCode ^
         firstVisitFee.hashCode ^
