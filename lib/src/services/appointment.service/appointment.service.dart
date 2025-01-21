@@ -12,15 +12,19 @@ class AppointmentService {
   static const past = 'past_appointments';
   // Create a new appointment
   static Future<void> create(Appointment appointment) async {
-    try {
-      await _firestore
-          .collection(appointment.bookedSlot != null ? approved : reqeusted)
-          .doc(appointment.id)
-          .set(appointment.toMap());
-      debugPrint('Appointment created successfully.');
-    } catch (e) {
-      debugPrint('Error creating appointment: $e');
-    }
+    await _firestore
+        .collection(appointment.bookedSlot != null ? approved : reqeusted)
+        .doc(appointment.id)
+        .set(appointment.toMap());
+    // try {
+    //   await _firestore
+    //       .collection(appointment.bookedSlot != null ? approved : reqeusted)
+    //       .doc(appointment.id)
+    //       .set(appointment.toMap());
+    //   debugPrint('Appointment created successfully.');
+    // } catch (e) {
+    //   debugPrint('Error creating appointment: $e');
+    // }
   }
 
   // Get all appointments in a specific collection
