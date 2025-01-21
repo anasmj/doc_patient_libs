@@ -2,39 +2,34 @@
 part of '../models.dart';
 
 class Slot {
-  final String? id;
-  final int? serial;
+  final String? index;
   final TimeOfDay? start;
   Slot({
-    this.id,
-    this.serial,
+    this.index,
     this.start,
   });
 
   Slot copyWith({
-    String? id,
+    String? index,
     int? serial,
     TimeOfDay? start,
   }) {
     return Slot(
-      id: id ?? this.id,
-      serial: serial ?? this.serial,
+      index: index ?? this.index,
       start: start ?? this.start,
     );
   }
 
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
-      'id': id,
-      'serial': serial,
+      'index': index,
       'start': start != null ? _timeOfDayToString(start!) : null,
     };
   }
 
   factory Slot.fromMap(Map<String, dynamic> map) {
     return Slot(
-      id: map['id'] != null ? map['id'] as String : null,
-      serial: map['serial'] != null ? map['serial'] as int : null,
+      index: map['index'] != null ? map['index'] as String : null,
       start: _stringToTimeOfDay(map['start'] as String),
     );
   }
@@ -45,14 +40,14 @@ class Slot {
       Slot.fromMap(json.decode(source) as Map<String, dynamic>);
 
   @override
-  String toString() => 'id: $id,serial: $serial ,  Slot(start: $start)';
+  String toString() => 'Slot(index: $index,  Slot(start: $start)';
 
   @override
   bool operator ==(covariant Slot other) {
     if (identical(this, other)) return true;
-    return other.id == id && other.serial == serial && other.start == start;
+    return other.index == index && other.start == start;
   }
 
   @override
-  int get hashCode => id.hashCode ^ serial.hashCode ^ start.hashCode;
+  int get hashCode => index.hashCode ^ start.hashCode;
 }
