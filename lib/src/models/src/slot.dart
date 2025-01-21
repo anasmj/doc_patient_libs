@@ -2,13 +2,13 @@
 part of '../models.dart';
 
 class Slot {
-  String? id;
-  final TimeOfDay start;
-  final TimeOfDay end;
+  final String? id;
+  final TimeOfDay? start;
+  final TimeOfDay? end;
   Slot({
-    required this.id,
-    required this.start,
-    required this.end,
+    this.id,
+    this.start,
+    this.end,
   });
 
   Slot copyWith({
@@ -26,14 +26,14 @@ class Slot {
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
       'id': id,
-      'start': _timeOfDayToString(start),
-      'end': _timeOfDayToString(end),
+      'start': start != null ? _timeOfDayToString(start!) : null,
+      'end': start != null ? _timeOfDayToString(end!) : null,
     };
   }
 
   factory Slot.fromMap(Map<String, dynamic> map) {
     return Slot(
-      id: map['id'] as String,
+      id: map['id'] != null ? map['id'] as String : null,
       start: _stringToTimeOfDay(map['start'] as String),
       end: _stringToTimeOfDay(map['end'] as String),
     );
@@ -50,12 +50,11 @@ class Slot {
   @override
   bool operator ==(covariant Slot other) {
     if (identical(this, other)) return true;
-
-    return other.start == start && other.end == end;
+    return other.id == id && other.start == start && other.end == end;
   }
 
   @override
-  int get hashCode => start.hashCode ^ end.hashCode;
+  int get hashCode => id.hashCode ^ start.hashCode ^ end.hashCode;
 }
 
 String _timeOfDayToString(TimeOfDay time) {
