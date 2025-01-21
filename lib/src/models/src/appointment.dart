@@ -4,7 +4,7 @@ part of '../models.dart';
 class Appointment {
   final String? id;
   final PatientData? patientData;
-  final Timing? bookedSlot;
+  final Slot? bookedSlot;
   final DateTime? dateTime;
   final Chember? chember;
   final AppointmentType? type;
@@ -23,7 +23,7 @@ class Appointment {
   Appointment copyWith({
     String? id,
     PatientData? patientData,
-    Timing? bookedSlot,
+    Slot? bookedSlot,
     DateTime? dateTime,
     Chember? chember,
     AppointmentType? type,
@@ -60,7 +60,7 @@ class Appointment {
           ? PatientData.fromMap(map['patientData'] as Map<String, dynamic>)
           : null,
       bookedSlot: map['bookedSlot'] != null
-          ? Timing.fromMap(map['bookedSlot'] as Map<String, dynamic>)
+          ? Slot.fromMap(map['bookedSlot'] as Map<String, dynamic>)
           : null,
       dateTime: map['dateTime'] != null
           ? DateTime.fromMillisecondsSinceEpoch(map['dateTime'] as int)
