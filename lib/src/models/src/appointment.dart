@@ -44,7 +44,7 @@ class Appointment {
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
       'id': id,
-      'bookedSlot': bookedSlot,
+      'bookedSlot': bookedSlot?.toMap(),
       'patientData': patientData?.toMap(),
       'dateTime': dateTime?.millisecondsSinceEpoch,
       'chember': chember?.toMap(),

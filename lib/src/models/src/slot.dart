@@ -4,10 +4,7 @@ part of '../models.dart';
 class Slot {
   final int? index;
   final TimeOfDay? start;
-  Slot({
-    this.index,
-    this.start,
-  });
+  Slot({this.index, this.start});
 
   Slot copyWith({
     int? index,
@@ -42,15 +39,10 @@ class Slot {
   String toString() => 'Slot(index: $index,  Slot(start: $start)';
 
   @override
-  bool operator ==(covariant Object other) {
+  bool operator ==(covariant Slot other) {
     if (identical(this, other)) return true;
-    if (other is! Slot) return false;
     return other.index == index && other.start == start;
   }
-  // bool operator ==(covariant Slot other) {
-  //   if (identical(this, other)) return true;
-  //   return other.index == index && other.start == start;
-  // }
 
   @override
   int get hashCode => index.hashCode ^ start.hashCode;
